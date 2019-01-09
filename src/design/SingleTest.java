@@ -1,7 +1,8 @@
 package design;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterEach;
@@ -11,8 +12,8 @@ import org.junit.jupiter.api.Test;
 public class SingleTest {
 	private long start, times;
 	private int threadNums = 32;
-	private ExecutorService exec = Executors.newFixedThreadPool(threadNums);
-	
+	private ExecutorService exec = new ThreadPoolExecutor(threadNums, threadNums, 2, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
+
 	@BeforeEach
 	public void startEach() {
 		start = System.currentTimeMillis();
